@@ -13,6 +13,8 @@ set(CMAKE_BUILD_TYPE Release)
 file(GLOB TAG_FILES ${PROJECT_SOURCE_DIR}/tag*.c)
 set_source_files_properties(SOURCE ${TAG_FILES} PROPERTIES COMPILE_FLAGS -O0)
 add_library(${PROJECT_NAME} SHARED ${APRILTAG_SRCS} ${COMMON_SRC} ${TAG_FILES})
+add_library(${PROJECT_NAME}_static STATIC ${APRILTAG_SRCS} ${COMMON_SRC} ${TAG_FILES})
+
 if (MSVC)
     # FindThreads will not find pthread.h with MSVC
     # winmm is necessary for __imp_timeGetTime
@@ -33,6 +35,10 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 # install library
 install(TARGETS ${PROJECT_NAME} EXPORT apriltagTargets
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+install(TARGETS ${PROJECT_NAME}_static EXPORT apriltag
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
