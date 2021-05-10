@@ -16,7 +16,7 @@ endif()
 find_package(OpenCV QUIET)
 
 aux_source_directory(common COMMON_SRC)
-set(APRILTAG_SRCS apriltag.c apriltag_pose.c apriltag_quad_thresh.c)
+set(APRILTAG_SRCS apriltag.c apriltag_pose.c apriltag_quad_thresh.c solve_square.c)
 
 # Library
 file(GLOB TAG_FILES ${PROJECT_SOURCE_DIR}/tag*.c)
